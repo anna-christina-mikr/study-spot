@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+      
+      
+    <title>Hi Coffee App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+
+    <style> 
+        .font1 { font-family: 'Times New Roman', Times, serif; }
+        .font2 { font-family: 'Arial', Times, serif; }
+        .font3 { font-family: 'Abril Fatface', serif; }
+
+        p.comment { color: coral; }
+        p { color: brown; }
+        h2 { color: rgb(194, 139, 119); font-style: italic; font-size: 20px;}
+        nav {
+            background-color: #5C4033;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        a:link { color: white;}
+        html, body {
+            background-color: #F7E9DC; }
+        a.faq {color:black;}
+    
+
+        nav a {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: white;
+            text-decoration: none;
+        }
+        a:hover { font-weight: bold; color: #F7E9DC;}
+
+        div {
+            width: 200px;
+            height: 200px;
+            background: rgb(255, 202, 211);
+            transition: width 3s, height 3s, font-size 3s;
+            transition-delay: 0.2s;
+        }
+        div.scrolled {width: 2500px; height: 500px; background: pink; font-size: 50px;}
+        div.explore {text-align: left; padding: 20px 20px 20px 40px; font-family: 'Abril Fatface', serif;}
+    
+    
+    </style>
+</head>
+
+
+
+<body>
+    <nav>
+        <a href="#home">home</a>
+        <a href="find-spots.html">find spots</a>
+        <a href="#add-spot">add spot</a>
+        <a href="#my-ratings">my ratings</a>
+        <a href="#map-view">map view</a>
+        <a href="#tips-guides">tips & guides</a>
+        <a href="faq.html">FAQ</a>
+        <a href="#profile">profile</a>
+      </nav>
+
+
+
+    <h1 id="myHeading">Nook</h1>
+
+ 
+
+    <h2>your favorite study spot finder</h2>
+
+
+
+    <h3>Coffee App will allow users to add new coffee study spots</h3>
+    <h4>Coffee App will allow users to add new coffee study spots</h4>
+    <h5>Coffee App will allow users to add rate coffee study spots</h5>
+    <h6>Coffee App will allow users to add new coffee study spots</h6>
+
+    <hr>
+
+    <a href="#faq" class="faq">Go to faq!</a>
+
+    <p>This is a coffee app</p>
+
+    <hr> <!-- horizontal rule -->
+
+    <a href="https://www.google.com">Google</a>
+
+
+    <div class="explore">explore more places...</div>
+
+    <ul style="list-style-type: circle">   
+        <li>Water</li>
+        <li>Coffee</li>
+        <li>Tea</li>
+        <li>Milk</li>
+    </ul>
+
+
+
+    <div style="background-color: lavender;" id="coffee-list-lavender">
+        <ol type="I">
+            <li>Coffee 
+                <ol>
+                    <li>Caffeine</li>
+                    <li>No Caffeine</li>
+                </ol>
+            </li>
+            <li>Tea</li>
+            <li>Milk</li>
+            <li>Water</li>
+        </ol>
+    </div>
+
+    <p class="font2">This is how you should set fonts, this is Arial font.</p>
+
+    <p class="comment">This is how you can change text colors with constraints. This is a comment so it is coral.</p>
+
+    <p id="myParagraph2">This text will be centered.</p>
+
+    <h2 class="font3">This is an Abril Fatface Heading</h2>
+
+    <div>
+        <p>This is not a coffee app</p>
+        <p>This is a coffee app</p>
+    </div>
+
+    <p>This is a coffee app</p>
+
+    <p>I love this <span style="color: red;">coffee shop app</span> so much!</p>
+
+    <a href="#coffee-list-lavender">Click here to see the coffee list!</a>
+
+    <h3 id="faq">Frequently Asked Questions</h3>
+    <p>What is the best coffee shop in the world?</p>
+    <p>The best coffee shop in the world is the one that you like the most.</p>
+
+    <img src="https://www.svgrepo.com/show/46233/coffee-icon.svg" alt="Coffee Logo" height="100" width="100">
+
+    <p>This is some text to test something I am trying to learn lets see if it works!</p>
+    <p style="clear: both">Second paragraph</p>
+
+    <img src="https://www.shutterstock.com/shutterstock/photos/2499566411/display_1500/stock-photo-this-is-an-illustration-of-someone-studying-or-doing-homework-you-can-use-it-for-various-purposes-2499566411.jpg" 
+        alt="Someone studying" height="150" style="float: left;">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore</p>
+
+    <script>    
+        // Style myParagraph2 properly
+        let myElement2 = document.getElementById("myParagraph2");
+        myElement2.style.textAlign = "center";
+        myElement2.style.color = "lightblue";
+        myElement2.style.fontWeight = "bold";
+        myElement2.style.fontSize = "20px";
+
+        // Style myHeading with Abril Fatface font
+        const myHeading = document.getElementById("myHeading");
+        myHeading.style.fontFamily = "'Abril Fatface', serif";
+        myHeading.style.fontSize = "50px";
+        myHeading.style.color = "#5C4033";
+
+        // Scroll-based transition for explore div
+        window.addEventListener('scroll', function() {
+            const exploreDiv = document.querySelector('.explore');
+            const scrollPosition = window.scrollY;
+            
+            // Trigger transition when scrolled down 100px
+            if (scrollPosition > 100) {
+                exploreDiv.classList.add('scrolled');
+            } else {
+                exploreDiv.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+<

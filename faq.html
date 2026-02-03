@@ -1,0 +1,121 @@
+<html>
+    <head>
+        <title>FAQ</title>
+
+        <style>
+            body {
+                background-color: #F7E9DC;
+                padding-bottom: 700px;
+            }
+            default {color: #5C4033; font-family: 'Abril Fatface', serif; font-size: 25px;}
+            p.motivation {font-size: 25px; text-align: center; margin-top: 180px; margin-bottom: 200px; transition: transform 0.8s ease-out;}
+            .slide-up {transform: translateY(-50px);}
+            #myHeading {
+      font-family: 'Abril Fatface', serif;
+      font-size: 40px;
+      color: #5C4033;
+      position: fixed;
+      top: 10px;
+      left: 30px;
+      z-index: 1001;
+      margin: 0;}
+     h1.myHeading {font-size: 25px; text-align: center; margin-top: 180px; margin-bottom: 50px; transition: transform 0.8s ease-out;}
+
+        /* Fixed nav */
+        nav {
+      background-color: #F7E9DC;
+      padding: 30px 20px 12px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+        font-family: 'Playfair Display', serif;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        color: #5C4033;
+        text-decoration: none;
+    }
+    a:hover { font-weight: bold; color: #37261e;}
+
+
+
+    .coffee-bean {
+      position: fixed;
+      top: 2px;
+      left: 140px;
+      z-index: 1001;
+      width: 60px;
+      height:80px;
+      background-image: url('https://www.creativefabrica.com/wp-content/uploads/2021/06/21/Coffee-Cute-Kawaii-Beans-Graphics-13653257-1-1-580x387.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      animation: coffeeJump 0.8s infinite;
+    }
+
+    @keyframes coffeeJump {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+            
+        </style>
+    </head>
+    <body>
+          <!-- Nav -->
+    <nav>
+        <a href="index.html">home</a>
+        <a href="find-spots.html">find spots</a>
+        <a href="#add">add spot</a>
+        <a href="#ratings">my ratings</a>
+        <a href="faq.html">FAQ</a>
+    </nav>
+        <h1 id="myHeading">Nook</h1>
+        <div class="coffee-bean"></div>
+        <h1 class="myHeading">What is Nook?</h1>
+        <p class="motivation">Nook is my passion project. As a Columbia student, one of my favorite things to do in the city is to find new places to enjoy a cup of coffee and get work done.
+            I noticed that a lot of places, may seem like they are great for work at first glance but when you get there, order a coffee you realize there is a myriad of problems; The place is too busy, too loud, cant even find seating. There are no outlets, or now wifi. All these factors i took into account when creating this project. 
+        </p>
+        <p class="motivation">You can even make it your own by adding your own ratings and reviews to the places you visit! If you feel as passionate about coffee and finding the perfect study environment as I do, please feel free to contribute to the project by adding your own spots or rating the ones that are already here.
+        </p>
+        <h1 class="myHeading">How do I add a spot?</h1>
+        <p class="motivation">To add a spot, you can click the "add spot" button in the navigation bar. This will take you to a page where you can add a new spot to the map.
+            You can add a new spot by clicking the "add spot" button in the navigation bar. This will take you to a page where you can add a new spot to the map.
+        </p>
+        <h1 class="myHeading">How do I review a spot?</h1>
+        <p class="motivation">To review a spot, you can click the "review" button in the navigation bar. This will take you to a page where you can add a new review to the spot.
+            You can add a new review by clicking the "review" button in the navigation bar. This will take you to a page where you can add a new review to the spot.
+        </p>
+        <h1 class="myHeading">If you have any suggestions, questions or feedback, please feel free to contact me at a,micros19@gmail.com</h1>
+   
+    <script>
+        window.addEventListener('scroll', function() {
+            const allTextElements = document.querySelectorAll('h1.myHeading, p.motivation');
+            const scrollPosition = window.scrollY;
+            
+            // Apply scroll effect to all text elements except title and nav
+            allTextElements.forEach((element, index) => {
+                const elementTop = element.offsetTop;
+                const elementHeight = element.offsetHeight;
+                const triggerPoint = elementTop + elementHeight - 200;
+                
+                if (scrollPosition > triggerPoint) {
+                    element.classList.add('slide-up');
+                } else {
+                    element.classList.remove('slide-up');
+                }
+            });
+        });
+    </script>
+    </body>
+</html>
