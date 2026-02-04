@@ -16,6 +16,7 @@
       background-color: #F7E9DC;
     }
 
+
     /* Fixed nav */
     nav {
       background-color: #F7E9DC;
@@ -39,7 +40,6 @@
     }
     a:hover { font-weight: bold; color: #37261e;}
 
-    /* Search box styles */
     #pac-input {
       background-color: #fff;
       font-family: Roboto, sans-serif;
@@ -214,13 +214,7 @@
     placeholder="Search for coffee shops, cafes, or study spots..."
   />
 
-  <!-- Test button for Pi Bakerie -->
-  <button 
-    onclick="testPiBakerie()" 
-    style="position: absolute; top: 80px; left: 12px; z-index: 1000; background: #5C4033; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">
-    🧪 Test Pi Bakerie
-  </button>
-
+  
   <!-- Info window content template -->
   <div id="infowindow-content" style="display: none;">
     <div style="font-family: system-ui; padding: 10px; max-width: 350px;">
@@ -253,6 +247,19 @@
       </div>
     </div>
   </div>
+  
+  <!-- Google maps API -->
+  <script src="config.js"></script>
+  <script>
+    const { GOOGLE_MAPS_API_KEY } = CONFIG;
+  </script>
+  <script>
+    const script= document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initMap`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  </script>
 
   <!-- Import coffee data -->
   <script src="coffee-data.js"></script>
@@ -445,10 +452,10 @@
               <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
               <div style="text-align: center;">
                 <button onclick="addReview('${shop.name}')" style="background: #5C4033; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 12px;">
-                  ✍️ Add Review
+                   Add Review
                 </button>
                 <button onclick="viewReviews('${shop.name}')" style="background: #8B4513; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 12px; margin-left: 8px;">
-                  📝 View Reviews
+                   View Reviews
                 </button>
               </div>
             </div>
@@ -524,141 +531,6 @@
       }
     };
 
-    // Test function to get Google Places data for Pi Bakerie
-    window.testPiBakerie = function() {
-      if (!map) {
-        alert('Map not initialized yet. Please wait a moment and try again.');
-        return;
-      }
-      
-      if (!google.maps.places) {
-        alert('Places API not loaded. Check your API key permissions.');
-        return;
-      }
-      
-      const placeId = 'ChIJWQEKf4xZwokRJVeIXK1GcQE';
-      const service = new google.maps.places.PlacesService(map);
-      
-      const request = {
-        placeId: placeId,
-        fields: [
-          'name', 'formatted_address', 'formatted_phone_number', 'website',
-          'rating', 'user_ratings_total', 'price_level', 'opening_hours',
-          'geometry', 'types', 'business_status', 'url', 'vicinity', 'photos'
-        ]
-      };
-      
-      service.getDetails(request, (place, status) => {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          // Create a test marker for Pi Bakerie
-          const testMarker = new google.maps.Marker({
-            position: place.geometry.location,
-            map: map,
-            title: place.name,
-            icon: {
-              url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
-              scaledSize: new google.maps.Size(32, 32)
-            }
-          });
-          
-          // Create info window with Google data
-          const googleDataContent = `
-            <div style="font-family: system-ui; padding: 10px; max-width: 350px;">
-              ${place.photos && place.photos.length > 0 ? `
-                <div style="margin: -10px -10px 10px -10px; height: 150px; background: linear-gradient(45deg, #f0f0f0, #e0e0e0); border-radius: 8px 8px 0 0; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center;">
-                  <img src="${place.photos[0].getUrl({maxWidth: 700, maxHeight: 400})}" 
-                       alt="${place.name}" 
-                       style="max-width: 100%; max-height: 100%; object-fit: contain;"
-                       onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(45deg, #5C4033, #8B4513)'; this.parentElement.innerHTML='<div style=\\'display: flex; align-items: center; justify-content: center; height: 100%; color: white; font-size: 24px;\\'>☕</div>';">
-                </div>
-              ` : `
-                <div style="margin: -10px -10px 10px -10px; height: 80px; background: linear-gradient(45deg, #5C4033, #8B4513); border-radius: 8px 8px 0 0; display: flex; align-items: center; justify-content: center;">
-                  <div style="color: white; font-size: 32px;">☕</div>
-                </div>
-              `}
-              <h4 style="margin: 0 0 8px 0; color: #5C4033; font-size: 16px;">${place.name}</h4>
-              <p style="margin: 4px 0; color: #666; font-size: 12px;"><strong>📍 Address:</strong> ${place.formatted_address}</p>
-              
-              <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
-              <p style="margin: 4px 0; color: #333; font-size: 13px;"><strong> Google Maps Data:</strong></p>
-              ${place.rating ? `<p style="margin: 2px 0; font-size: 12px; color: #666;">⭐ Rating: ${place.rating}/5 (${place.user_ratings_total} reviews)</p>` : ''}
-              ${place.price_level ? `<p style="margin: 2px 0; font-size: 12px; color: #666;">💰 Price: ${'$'.repeat(place.price_level)}</p>` : ''}
-              ${place.website ? `<p style="margin: 2px 0; font-size: 12px; color: #666;">🌐 <a href="${place.website}" target="_blank" style="color: #1a73e8;">Website</a></p>` : ''}
-              ${place.opening_hours ? `
-                <div style="margin: 2px 0; font-size: 12px; color: #666;">
-                  <p><strong>🕐 Status:</strong> ${place.opening_hours.open_now ? 'Open' : 'Closed'} (based on scheduled hours)</p>
-                  <p style="font-size: 10px; color: #999; margin: 2px 0;">Note: Check website for current hours</p>
-                  ${place.opening_hours.weekday_text ? `
-                    <details style="margin-top: 4px;">
-                      <summary style="cursor: pointer; color: #1a73e8; font-size: 11px;">📅 View Weekly Hours</summary>
-                      <div style="margin-top: 4px; font-size: 10px;">
-                        ${place.opening_hours.weekday_text.map(day => `<div>${day}</div>`).join('')}
-                      </div>
-                    </details>
-                  ` : ''}
-                </div>
-              ` : ''}
-              
-              <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
-              <div style="text-align: center;">
-                <button onclick="addStudyDataForPiBakerie()" style="background: #5C4033; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 12px;">
-                  ☕ Add Study Data
-                </button>
-                <button onclick="addReview('Pi Bakerie')" style="background: #8B4513; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 12px; margin-left: 8px;">
-                  ✍️ Add Review
-                </button>
-              </div>
-            </div>
-          `;
-          
-          const testInfoWindow = new google.maps.InfoWindow({
-            content: googleDataContent
-          });
-          
-          testMarker.addListener('click', () => {
-            testInfoWindow.open(map, testMarker);
-          });
-          
-          // Center map on Pi Bakerie
-          map.setCenter(place.geometry.location);
-          map.setZoom(16);
-          
-          alert(`Pi Bakerie data loaded!`);
-        } else {
-          alert(`Error getting Pi Bakerie data: ${status}`);
-        }
-      });
-    };
-
-    // Function to add study data specifically for Pi Bakerie
-    window.addStudyDataForPiBakerie = function() {
-      const placeId = 'ChIJWQEKf4xZwokRJVeIXK1GcQE';
-      
-      const outlets = prompt('Rate Pi Bakerie outlets availability (1-10):');
-      const wifi = prompt('Rate Pi Bakerie WiFi quality (1-10):');
-      const seating = prompt('Rate Pi Bakerie seating comfort (1-10):');
-      const noise = prompt('Rate Pi Bakerie noise level (1-10):');
-      const bathroom = prompt('Pi Bakerie bathroom availability (Yes/No):');
-      
-      if (outlets && wifi && seating && noise) {
-        const studyData = {
-          outlets: `${outlets}/10`,
-          wifi: `${wifi}/10`,
-          seating: `${seating}/10`,
-          noise: `${noise}/10`,
-          bathroom: bathroom,
-          rating: ((parseInt(outlets) + parseInt(wifi) + parseInt(seating)) / 3 / 2).toFixed(1)
-        };
-        
-        // Save to localStorage
-        const allStudyData = JSON.parse(localStorage.getItem('studyData') || '{}');
-        allStudyData[placeId] = studyData;
-        localStorage.setItem('studyData', JSON.stringify(allStudyData));
-        
-        alert('Pi Bakerie study data added!');
-      }
-    };
-
     window.addReview = function(placeName = null) {
       const name = placeName || (currentPlace ? currentPlace.name : 'this place');
       const review = prompt(`Add a review for ${name}:\n\nRate from 1-5 stars and add your comments.`);
@@ -705,14 +577,6 @@
         hero.classList.remove("slide-up");
       }
     });
-  </script>
-
-  <!-- Google Maps API -->
-  <!-- Replace YOUR_API_KEY with your actual Google Maps API key -->
-  <!-- Get one at: https://console.cloud.google.com/ -->
-  <!-- Enable: Maps JavaScript API, Places API -->
-  <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgB9iu0G1Rqp5MlnQydh9V1q3ZsYgHa9o&libraries=places&callback=initMap">
   </script>
 
 </body>
